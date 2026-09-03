@@ -1,112 +1,262 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #222;
-    color: #fff;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+html {
+    scroll-behavior: smooth;
+}
+:root{
+    --mainColor:#00dcff
+}
+
+/* .pagetop {
+    height: 50px;
+    width: 50px;
+    position: fixed;
+    right: 30px;
+    bottom: 30px    
+    background-color: transparent ;
+    border: solid 2px var(--mainColor);
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    user-select: none; /* ドラッグ中のテキスト選択を防ぐ */
+    z-index: 2;
+    backdrop-filter: blur(50px);
 }
 
-.game-container {
+.pagetop__arrow {
+    height: 10px;
+    width: 10px;
+    border-top: 3px solid  var(--mainColor);
+    border-right: 3px solid  var(--mainColor);
+    transform: translateY(20%) rotate(-45deg);
+} */
+
+h1 , p , h6{
+  font-family: "Kaisei Opti", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.logo{
+    position: relative;
+}
+
+body{
+    background-color: white;
+}
+
+.logo img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50% , 25%); */
+    max-width: 80vw;
+    animation: fade-out 1s ease-in 1s forwards , logo-in 1s ease-in 0s forwards;
+}
+
+@keyframes logo-in{
+    from{
+        transform: translate(-50% , 0%);
+    }
+    to{
+        transform: translate(-50% , 25%);
+    }
+}
+
+.logo p{
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 16px;
+    transform: translate(-50% , 80vh);
+    overflow: hidden;
+    width: 0;
+    text-align: center;
+    white-space: nowrap;
+    animation: OP 1s steps(20) 0s forwards , fade-out 1s ease-in 1s forwards;
+}
+
+@keyframes OP{
+    from{
+        width: 0;
+    }
+    to{
+        width: 90vw;
+    }
+}
+
+@keyframes fade-out{
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+
+.mainText{
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    animation: fade-in 1s ease-in 2s forwards;
+}
+
+.mainText{
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 10px;
+@keyframes fade-in{
+    from{
+        max-height: 0;
+        opacity: 0;
+    }
+    to{
+        max-height: 114514px;
+        opacity: 1;
+    }
 }
 
-.info-panel {
+.mainText img{
+    max-width: 90vw;
+}
+
+.site-footer{
+    border-top: 1px solid #828282;
+    margin-bottom: 150px;
+}
+
+.site-footer h6{
+    font-size: 16px;
+    margin: 20px 0;
+}
+
+.titleText{
+    font-size: 24px;
+    position: fixed;
+    background-color: white;
+    text-align: center;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: auto;
+    margin: 0;
+    padding: 20px 0;
+    z-index: 99;
+}
+
+.topText{
+    margin-top: 100px;
+}
+
+.menu ul{
     display: flex;
-    justify-content: space-around;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    background: #333;
-    padding: 10px;
-    border-radius: 8px;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    left: 0;
+    margin: auto;
+    bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    gap: 20px;
+    text-align: center;
+    padding: 15px 30px;
+    width: 70%;
+    border-radius: 32px;
+    backdrop-filter: blur(80px);
+    -webkit-backdrop-filter: blur(80px);
+    z-index: 9999;
 }
 
-.game-area {
-    width: 600px;
-    height: 400px;
-    background-color: #444;
-    border: 4px solid #fff;
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    cursor: none; /* 通常のマウスカーソルを消す */
+.menu{
+    text-align: center;
 }
 
-/* スタートボタンのスタイル */
-#start-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 12px 24px;
-    font-size: 1.2rem;
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    z-index: 10;
+.menu ul li {
+    flex: 1;
+    min-width: 0;
 }
 
-#start-btn:hover {
-    background-color: #ff6b81;
+a{
+    text-decoration: none;
+    color: black;
 }
 
-/* 的（ターゲット）のスタイル */
-.target {
+.menu img{
     width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, red 20%, white 20%, white 40%, red 40%, red 60%, white 60%, white 80%, red 80%);
-    border-radius: 50%;
-    position: absolute;
-    animation: pop 0.2s ease-out;
-    pointer-events: none; /* 的自体への直接クリックは無効化（JSで判定するため） */
+    height: 50px;
+    object-fit: contain;
 }
 
-/* カスタムカーソル（照準）のスタイル */
-#custom-cursor {
-    width: 30px;
-    height: 30px;
-    border: 3px solid #00ffcc;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none; /* カーソル自体がドラッグの邪魔をしないようにする */
-    z-index: 5;
-    box-shadow: 0 0 8px #00ffcc;
+.menu p{
+    margin: 0;
+    text-align: center;
 }
 
-/* 照準の中心点 */
-#custom-cursor::after {
-    content: '';
+@media screen and (min-width: 480px) {
+    .menu ul{
+        width: 30%;
+        gap: 40px;
+    }
+}
+
+
+.sub{
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 4px;
-    height: 4px;
-    background-color: #00ffcc;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+    max-width: 80%;
+    transform: translate(-50%, -50%); 
+    animation: subanim 2s ease-in forwards;
 }
 
-.instruction {
-    margin-top: 15px;
-    color: #aaa;
-    font-size: 0.9rem;
+@keyframes subanim{
+    0%{
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0);
+        max-height: 200px;
+    }
+    5%{
+        transform: translate(-50%, -50%);
+        top: 60%;
+        max-height: 200px;
+    }
+    20%{
+        transform: translate(-50%, -50%);
+        top: 60%;
+        max-height: 200px;
+    }
+    30% {
+        max-height: 500px;
+        transform: translate(-50%, -50%);
+        top: 20%;
+        transform: translate(-50%, -50%);
+    }
+    31%{
+        transform: rotate(40deg) translate(-50%, 0%);
+    }
+    100%{
+        transform: rotate(40deg) translate(-50%, 0%);
+        top: 80%;
+        opacity: 0;
+    }
 }
 
-@keyframes pop {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
+
+.sub2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50% ,-50%);
+    text-align: center;
+    opacity: 0;
+    animation: subanim2 1s ease-in 1s forwards;
+}
+
+@keyframes subanim2{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }
